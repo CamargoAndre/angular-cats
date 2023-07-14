@@ -1,1 +1,13 @@
-<p>new-cat works!</p>
+<h2>{{editMode ? "Editar" : "Cadastrar"}} Gato</h2>
+
+<form [formGroup]="formCat">
+  <mat-form-field appearance="fill">
+    <mat-label>Fill form field</mat-label>
+    <input matInput placeholder="Placeholder">
+    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+    <mat-hint>Hint</mat-hint>
+  </mat-form-field>
+
+
+
+</form>

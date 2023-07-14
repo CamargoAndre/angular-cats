@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -16,12 +17,23 @@ export class NewCatComponent implements OnInit{
     {id:5, name: 'Farofa', length: 0.8, weight: 1.0, race: 'Abissinio'},
   ];
 
+  formCat = new FormGroup({
+    name: new FormControl(),
+    length: new FormControl(),
+    weigth: new FormControl(),
+    race: new FormControl(),
+  });
+
+  editMode = false;
+
 
   constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {
 
     if(this.route.routeConfig?.path?.includes("edit")) {
+      this.editMode = true;
+
       let id = this.route.snapshot.params['id'];
       let cat = this.dataSource.find(item => item.id == id);
       console.log(cat);
