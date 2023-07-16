@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -18,8 +18,8 @@ export class NewCatComponent implements OnInit{
   ];
 
   formCat = new FormGroup({
-    name: new FormControl(),
-    length: new FormControl(),
+    name: new FormControl('', Validators.required),
+    length: new FormControl('', Validators.required),
     weigth: new FormControl(),
     race: new FormControl(),
   });
@@ -38,8 +38,9 @@ export class NewCatComponent implements OnInit{
       let cat = this.dataSource.find(item => item.id == id);
       console.log(cat);
     }
+  }
 
-
-
+  logInfo(){
+    console.log(this.formCat)
   }
 }

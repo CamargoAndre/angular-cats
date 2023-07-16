@@ -1,13 +1,37 @@
 <h2>{{editMode ? "Editar" : "Cadastrar"}} Gato</h2>
 
 <form [formGroup]="formCat">
-  <mat-form-field appearance="fill">
-    <mat-label>Fill form field</mat-label>
-    <input matInput placeholder="Placeholder">
-    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-    <mat-hint>Hint</mat-hint>
+  <p>
+  <mat-form-field >
+    <mat-label>Nome</mat-label>
+    <input matInput formControlName="name">
+    <mat-error>Campo Obrigátorio</mat-error>
   </mat-form-field>
+  </p>
+  <p>
+  <mat-form-field >
+    <mat-label>Comprimento</mat-label>
+    <input matInput formControlName="length">
+    <mat-error>Campo Obrigátorio</mat-error>
+  </mat-form-field>
+  </p>
+  <p>
+  <mat-form-field >
+    <mat-label>Peso</mat-label>
+    <input matInput formControlName="weigth">
+  </mat-form-field>
+  </p>
+  <p>
+  <mat-form-field >
+    <mat-label>Raça</mat-label>
+    <input matInput formControlName="race">
+  </mat-form-field>
+  </p>
 
-
-
+  <button mat-flat-button
+    (click)="logInfo()"
+    color="primary"
+    [disabled]="formCat.invalid">
+    Cadastrar
+  </button>
 </form>
