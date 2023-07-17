@@ -1,6 +1,6 @@
 <h2>{{editMode ? "Editar" : "Cadastrar"}} Gato</h2>
 
-<form [formGroup]="formCat">
+<form [formGroup]="formCat" (ngSubmit)="logInfo()">
   <p>
   <mat-form-field >
     <mat-label>Nome</mat-label>
@@ -11,14 +11,14 @@
   <p>
   <mat-form-field >
     <mat-label>Comprimento</mat-label>
-    <input matInput formControlName="length">
+    <input matInput formControlName="length" type="number">
     <mat-error>Campo Obrigátorio</mat-error>
   </mat-form-field>
   </p>
   <p>
   <mat-form-field >
     <mat-label>Peso</mat-label>
-    <input matInput formControlName="weigth">
+    <input matInput formControlName="weigth" type="number">
   </mat-form-field>
   </p>
   <p>
@@ -29,9 +29,14 @@
   </p>
 
   <button mat-flat-button
-    (click)="logInfo()"
+    type="submit"
     color="primary"
     [disabled]="formCat.invalid">
     Cadastrar
+  </button>
+  <button mat-stroked-button
+    type="reset"
+    color="primary">
+    Limpar
   </button>
 </form>
