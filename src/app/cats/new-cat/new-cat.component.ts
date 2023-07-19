@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { Cat } from '../shared/models/Cat.model';
+import { Cat } from 'src/app/shared/models/Cat.model';
+
 
 @Component({
   selector: 'app-new-cat',
@@ -55,6 +56,19 @@ export class NewCatComponent implements OnInit{
   }
 
   createCat(): void {
+
+  }
+
+  updateCat() : void{
+
+    let index = this.dataSource.findIndex(
+      (value) => value.id == this.selectedCat.id
+    );
+
+    this.dataSource[index] = {
+      id: this.selectedCat.id,
+      ...this.formCat.getRawValue(),
+    }
 
   }
 

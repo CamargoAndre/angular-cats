@@ -1,6 +1,6 @@
 <h2>{{editMode ? "Editar" : "Cadastrar"}} Gato</h2>
 
-<form [formGroup]="formCat" (ngSubmit)="createCat()">
+<form [formGroup]="formCat" (ngSubmit)="editMode ? updateCat() : createCat()">
   <p>
   <mat-form-field >
     <mat-label>Nome</mat-label>
