@@ -19,5 +19,11 @@ export class CatService {
 
   putCat() {}
 
+  deleteCat() {}
+
+  isLooggedIn(): boolean {
+    return true;
+  }
+
 
 }
