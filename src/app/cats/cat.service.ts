@@ -16,7 +16,13 @@ export class CatService {
     return this.http.get<Cat[]>(this.serverUrl);
   }
 
-  postCat() {}
+  postCat(cat: Cat): Observable<Cat> {
+    return this.http.post<Cat>(this.serverUrl, cat);
+  }
+
+  getCatById(id: number): Observable<Cat>{
+    return this.http.get<Cat>(`${this.serverUrl}/${id}`)
+  }
 
   putCat() {}
 

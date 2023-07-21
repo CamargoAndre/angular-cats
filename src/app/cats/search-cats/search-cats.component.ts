@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CatService } from '../cat.service';
 import { Cat } from 'src/app/shared/models/Cat.model';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -14,14 +15,21 @@ export class SearchCatsComponent implements OnInit{
 
   dataSource : Cat[]= [];
 
+  serviceSub = new Subscription();
+
   constructor(private service: CatService){}
 
   ngOnInit(): void {
 
-    this.service.getCats().subscribe((resp)=>{
+    this.serviceSub = this.service.getCats().subscribe((resp)=>{
       console.log(resp);
       this.dataSource = resp;
     })
+  }
+
+  ngOnDestroy(): void {
+    this.serviceSub.unsubscribe();
+
   }
 
 }
