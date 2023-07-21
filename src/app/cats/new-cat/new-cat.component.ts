@@ -11,13 +11,13 @@ import { Cat } from 'src/app/shared/models/Cat.model';
 })
 export class NewCatComponent implements OnInit{
 
-  dataSource: Cat[] = [
-    {id:1, name: 'Cesar', length: 0.3, weight: 4.0, race: 'Ciamês' },
-    {id:2, name: 'Augusto', length: 0.5, weight: 2.0, race: 'Persa'},
-    {id:3, name: 'Ronaldo', length: 0.1, weight: 3.5, race: 'Burmê' },
-    {id:4, name: 'Gato', length: 0.2, weight: 6.0, race: 'Bengal' },
-    {id:5, name: 'Farofa', length: 0.8, weight: 1.0, race: 'Abissinio'},
-  ];
+  // dataSource: Cat[] = [
+  //   {id:1, name: 'Cesar', length: 0.3, weight: 4.0, race: 'Ciamês' },
+  //   {id:2, name: 'Augusto', length: 0.5, weight: 2.0, race: 'Persa'},
+  //   {id:3, name: 'Ronaldo', length: 0.1, weight: 3.5, race: 'Burmê' },
+  //   {id:4, name: 'Gato', length: 0.2, weight: 6.0, race: 'Bengal' },
+  //   {id:5, name: 'Farofa', length: 0.8, weight: 1.0, race: 'Abissinio'},
+  // ];
 
   formCat = new FormGroup({
     name: new FormControl('', Validators.required),
@@ -37,7 +37,7 @@ export class NewCatComponent implements OnInit{
       this.editMode = true;
 
       let catId = this.route.snapshot.params['id'];
-      this.selectedCat = this.dataSource.find(item => item.id == catId);
+      // this.selectedCat = this.dataSource.find(item => item.id == catId);
 
       //this.formCat.get('name').setValue(cat.name);
 
@@ -61,14 +61,14 @@ export class NewCatComponent implements OnInit{
 
   updateCat() : void{
 
-    let index = this.dataSource.findIndex(
-      (value) => value.id == this.selectedCat.id
-    );
+    // let index = this.dataSource.findIndex(
+    //   (value) => value.id == this.selectedCat.id
+    // );
 
-    this.dataSource[index] = {
-      id: this.selectedCat.id,
-      ...this.formCat.getRawValue(),
-    }
+    // this.dataSource[index] = {
+    //   id: this.selectedCat.id,
+    //   ...this.formCat.getRawValue(),
+    // }
 
   }
 

@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Cat } from '../shared/models/Cat.model';
+import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CatService {
 
@@ -11,19 +12,17 @@ export class CatService {
 
   constructor(private http: HttpClient) { }
 
-  getCats() {
-    return this.http.get<Cat[]>(this.serverUrl)
+  getCats(): Observable<Cat[]> {
+    return this.http.get<Cat[]>(this.serverUrl);
   }
 
   postCat() {}
 
   putCat() {}
 
-  deleteCat() {}
+  patchCat(){}
 
-  isLooggedIn(): boolean {
-    return true;
-  }
+  deleteCat() {}
 
 
 }

@@ -11,6 +11,9 @@ import {MatButtonModule} from '@angular/material/button';
 
 import { CatsModule } from './cats/cats.module';
 import { SharedModule } from './shared/shared.module';
+import { InMemoryDataService } from './shared/in-memory-data/in-memory-data.service';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 
 @NgModule({
   declarations: [
@@ -24,7 +27,11 @@ import { SharedModule } from './shared/shared.module';
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
-    SharedModule
+    SharedModule,
+    HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, {
+      dataEncapsulation: false,
+    }),
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
