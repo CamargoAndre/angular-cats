@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Cat } from 'src/app/shared/models/Cat.model';
 import { CatService } from '../cat.service';
+import { ToastrService } from 'ngx-toastr';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 @Component({
@@ -21,12 +23,19 @@ export class NewCatComponent implements OnInit{
     race: new FormControl(),
   });
 
+
+  catId: number;
   editMode = false;
   selectedCat: Cat;
   serviceSub = new Subscription();
 
 
-  constructor(private route: ActivatedRoute, private service: CatService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private service: CatService,
+    private toastService: ToastrService,
+    private router: Router
+    ) {}
 
   ngOnInit(): void {
     this.verifyRoute();
@@ -36,16 +45,16 @@ export class NewCatComponent implements OnInit{
 
     if(this.route.routeConfig.path.includes("edit")) {
       this.editMode = true;
-      let catId = this.route.snapshot.params['id'];
+     this.catId = this.route.snapshot.params['id'];
 
-      this.getCatById(catId)
+      this.getCatById()
 
     }
 
   }
 
-  getCatById(id: number): void {
-    this.serviceSub = this.service.getCatById(id).subscribe((resp) =>{
+  getCatById(): void {
+    this.serviceSub = this.service.getCatById(this.catId).subscribe((resp) =>{
       this.fillForm(resp);
     })
   }
@@ -61,20 +70,46 @@ export class NewCatComponent implements OnInit{
   }
 
   createCat(): void {
+    this.serviceSub = this.service.postCat(this.formCat.getRawValue()).subscribe({
+      next: (resp: Cat) => {
+        this.redirectAndShowToast();
+      },
+      error: (error: HttpErrorResponse) => {
 
+      },
+    });
   }
 
   updateCat() : void{
 
-    // let index = this.dataSource.findIndex(
-    //   (value) => value.id == this.selectedCat.id
-    // );
+    this.serviceSub = this.service
+      .putCat(this.catId, this.formCat.getRawValue())
+      .subscribe({
+        next: (resp) => {
+          this.redirectAndShowToast(resp.name);
+        },
+        error: (error : HttpErrorResponse) => {
+          this.toastService.error('Erro!', 'Não foi possível atualizar o gatinho!');
+        },
+      });
+  }
 
-    // this.dataSource[index] = {
-    //   id: this.selectedCat.id,
-    //   ...this.formCat.getRawValue(),
-    // }
 
+
+
+
+  redirectAndShowToast(name?: string): void {
+    let message = 'Gato cadastrado';
+    if(name){
+      message = `Gato ${name} atualizado`;
+    }
+    this.router.navigate(['/cats/search']).then((value) => {
+      if(value){
+        this.toastService.success('Sucesso!',message)
+      }
+    })
   }
 
 }
+
+

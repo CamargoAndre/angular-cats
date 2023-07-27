@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class CatService {
 
-  private serverUrl = 'api/cats';
+  private serverUrl = 'http://localhost:3000/cats';
 
   constructor(private http: HttpClient) { }
 
@@ -21,10 +21,12 @@ export class CatService {
   }
 
   getCatById(id: number): Observable<Cat>{
-    return this.http.get<Cat>(`${this.serverUrl}/${id}`)
+    return this.http.get<Cat>(`${this.serverUrl}/${id}`);
   }
 
-  putCat() {}
+  putCat(id: number, cat: Cat): Observable<Cat>{
+    return this.http.put<Cat>(`${this.serverUrl}/${id}`, cat);
+  }
 
   patchCat(){}
 

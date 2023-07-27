@@ -8,12 +8,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
-
 import { CatsModule } from './cats/cats.module';
 import { SharedModule } from './shared/shared.module';
-import { InMemoryDataService } from './shared/in-memory-data/in-memory-data.service';
 import { HttpClientModule } from '@angular/common/http';
-import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -28,10 +26,8 @@ import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
     MatButtonModule,
     MatIconModule,
     SharedModule,
-    HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, {
-      dataEncapsulation: false,
-    }),
-    HttpClientModule
+    HttpClientModule,
+    ToastrModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]
