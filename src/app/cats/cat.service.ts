@@ -28,9 +28,10 @@ export class CatService {
     return this.http.put<Cat>(`${this.serverUrl}/${id}`, cat);
   }
 
+  deleteCat(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.serverUrl}/${id}`);
+  }
+
   patchCat(){}
-
-  deleteCat() {}
-
 
 }

@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CatService } from '../cat.service';
 import { Cat } from 'src/app/shared/models/Cat.model';
 import { Subscription } from 'rxjs';
+import { FormControl } from '@angular/forms';
 
 
 @Component({
@@ -17,15 +18,30 @@ export class SearchCatsComponent implements OnInit, OnDestroy{
 
   serviceSub = new Subscription();
 
+
+  searchControl = new FormControl<string>('');
+
   constructor(private service: CatService){}
 
   ngOnInit(): void {
+
+    this.getCats();
+
+    this.searchControl.valueChanges.subscribe((resp) =>{
+      console.log(resp);
+    })
+
+  }
+
+  getCats():void{
 
     this.serviceSub = this.service.getCats().subscribe((resp)=>{
       console.log(resp);
       this.dataSource = resp;
     })
   }
+
+
 
   ngOnDestroy(): void {
     this.serviceSub.unsubscribe();

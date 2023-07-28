@@ -75,7 +75,7 @@ export class NewCatComponent implements OnInit{
         this.redirectAndShowToast();
       },
       error: (error: HttpErrorResponse) => {
-
+        this.showError();
       },
     });
   }
@@ -89,12 +89,17 @@ export class NewCatComponent implements OnInit{
           this.redirectAndShowToast(resp.name);
         },
         error: (error : HttpErrorResponse) => {
-          this.toastService.error('Erro!', 'Não foi possível atualizar o gatinho!');
+          this.showError();
         },
       });
   }
 
-
+  showError(): void {
+   this.toastService.error(
+    'Erro',
+    'Não foi possivel atualizar o gatinho!'
+   );
+  }
 
 
 
