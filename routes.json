@@ -1,0 +1,4 @@
+{
+  "/cats?name=:name": "/cats?name_like=:name",
+  "/cats?name=" : "/cats"
+}

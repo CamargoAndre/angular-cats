@@ -1,9 +1,9 @@
 <h2>Busca de Gatos</h2>
 <div class="w-75">
 
-  <mat-form-field class="w-25">
+  <mat-form-field class="w-50">
     <mat-label>Pesquise por nome:</mat-label>
-    <input matInput type="text" [formControl]="searchControl">
+    <input matInput type="text" [formControl]="searchControl" (ngModelChange)="searchCats($event)"/>
     <button
         *ngIf="searchControl.value != ''"
         matSuffix

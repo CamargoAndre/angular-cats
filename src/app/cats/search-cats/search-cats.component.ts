@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CatService } from '../cat.service';
 import { Cat } from 'src/app/shared/models/Cat.model';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription, debounce, debounceTime, filter } from 'rxjs';
 import { FormControl } from '@angular/forms';
 
 
@@ -21,26 +21,41 @@ export class SearchCatsComponent implements OnInit, OnDestroy{
 
   searchControl = new FormControl<string>('');
 
+  subject = new Subject<string>();
+
   constructor(private service: CatService){}
 
   ngOnInit(): void {
 
     this.getCats();
 
-    this.searchControl.valueChanges.subscribe((resp) =>{
-      console.log(resp);
-    })
+    this.setConfigSubject();
+
+    // this.searchControl.valueChanges.subscribe((resp) =>{
+    //   console.log(resp);
+    // })
 
   }
 
-  getCats():void{
+  getCats(searchValue: string = ""):void{
 
-    this.serviceSub = this.service.getCats().subscribe((resp)=>{
+    this.serviceSub = this.service.getCats(searchValue).subscribe((resp)=>{
       console.log(resp);
       this.dataSource = resp;
     })
   }
 
+  setConfigSubject(): void {
+    this.subject.pipe(
+      debounceTime(1000))
+    .subscribe((searchValue: string) => {
+      this.getCats(searchValue);
+    });
+  }
+
+  searchCats(searchValue: string): void{
+    this.subject.next(searchValue);
+  }
 
 
   ngOnDestroy(): void {
