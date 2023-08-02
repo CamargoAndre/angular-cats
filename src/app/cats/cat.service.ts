@@ -13,7 +13,7 @@ export class CatService {
   constructor(private http: HttpClient) { }
 
   getCats(searchValue: string): Observable<Cat[]> {
-    let httpParams = new HttpParams({fromObject: { name_like: searchValue } })
+    let httpParams = new HttpParams({fromObject: { search: searchValue } })
     return this.http.get<Cat[]>(this.serverUrl, {params: httpParams});
   }
 
