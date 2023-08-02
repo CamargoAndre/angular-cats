@@ -12,6 +12,7 @@ import { CatsModule } from './cats/cats.module';
 import { SharedModule } from './shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
+import { LoginModule } from './login/login.module';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { ToastrModule } from 'ngx-toastr';
     SharedModule,
     HttpClientModule,
     ToastrModule.forRoot(),
+    LoginModule
   ],
   providers: [],
   bootstrap: [AppComponent]
