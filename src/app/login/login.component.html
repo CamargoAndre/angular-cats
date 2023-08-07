@@ -2,26 +2,45 @@
   <mat-card-header>
     <mat-card-title>Sistema de gestão de agropecuária</mat-card-title>
   </mat-card-header>
-  <mat-card-content>
-    <p>
-      <mat-form-field>
-        <mat-label>E-mail</mat-label>
-        <input matInput />
-      </mat-form-field>
-    </p>
-    <p>
-      <mat-form-field>
-        <mat-label>Senha</mat-label>
-        <input matInput [type]="showPassword ? 'text': 'password'" />
-        <mat-icon matSuffix (click)="showPassword = !showPassword" class="c-pointer">
-          {{showPassword ? 'visibility_off' : 'visibility'}}
-        </mat-icon>
-      </mat-form-field>
-    </p>
-  </mat-card-content>
-  <mat-card-actions align="end">
-    <button mat-flat-button color="primary">Acessar</button>
-  </mat-card-actions>
+  <form [formGroup]="loginForm" (ngSubmit)="login()">
+    <mat-card-content>
+      <p>
+        <mat-form-field>
+          <mat-label>E-mail</mat-label>
+          <input matInput formControlName="login"/>
+          <mat-error *ngIf="loginForm.get('login').hasError('required')">
+            Campo Obrigatório
+          </mat-error>
+          <mat-error *ngIf="loginForm.get('login').hasError('email')">
+            E-mail inválido
+          </mat-error>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field>
+          <mat-label>Senha</mat-label>
+          <input matInput [type]="showPassword ? 'text': 'password'" formControlName="password"/>
+          <mat-error *ngIf="loginForm.get('password').hasError('required')">
+            Campo Obrigatório
+          </mat-error>
+          <mat-error *ngIf="loginForm.get('password').hasError('minlength')">
+            Tamanho minimo é de 6 caracteres
+          </mat-error>
+          <mat-icon matSuffix (click)="showPassword = !showPassword" class="c-pointer">
+            {{showPassword ? 'visibility_off' : 'visibility'}}
+          </mat-icon>
+        </mat-form-field>
+      </p>
+    </mat-card-content>
+    <mat-card-actions align="end">
+      <button
+        mat-flat-button color="primary"
+        type="submit"
+        [disabled]="loginForm.invalid">
+          Acessar
+      </button>
+    </mat-card-actions>
+  </form>
   <mat-card-footer>
     <!-- <mat-progress-bar mode="indeterminate"></mat-progress-bar> -->
   </mat-card-footer>
