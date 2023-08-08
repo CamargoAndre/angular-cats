@@ -1,0 +1,25 @@
+import { inject } from '@angular/core';
+import { ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+
+export const AuthGuard: CanActivateFn = (
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot,
+) => {
+
+  let router = inject(Router);
+  let toast = inject(ToastrService);
+
+  if(localStorage.getItem("auth")){
+    return true;
+
+  }else{
+
+    // router.navigate(['/login']);
+
+    toast.error("Erro", "Faça o login novamente.")
+    return router.parseUrl('/login');
+
+  }
+
+};
