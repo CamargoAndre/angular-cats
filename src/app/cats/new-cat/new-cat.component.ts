@@ -115,6 +115,10 @@ export class NewCatComponent implements OnInit{
     })
   }
 
+  back(): void {
+    this.router.navigate(['/cats/search'], { queryParamsHandling: 'preserve' });
+  }
+
 }
 
 

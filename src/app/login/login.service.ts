@@ -13,7 +13,7 @@ export class LoginService {
   constructor(private http: HttpClient ) { }
 
   login(login: string, password: string):Observable<Auth> {
-    return this.http.post<Auth>(this.serverUrl, {login, password})
+    return this.http.post<Auth>(this.serverUrl, {body: {login, password}});
   }
 
 }

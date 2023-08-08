@@ -61,6 +61,7 @@
           color="accent"
           aria-label="Example icon Button with a home icon"
           [routerLink]="['/cats/edit', element.id]"
+          [queryParams]="{search: searchControl.value}"
         >
           <mat-icon>edit</mat-icon>
         </button>

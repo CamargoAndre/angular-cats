@@ -14,9 +14,6 @@ export const AuthGuard: CanActivateFn = (
     return true;
 
   }else{
-
-    // router.navigate(['/login']);
-
     toast.error("Erro", "Faça o login novamente.")
     return router.parseUrl('/login');
 

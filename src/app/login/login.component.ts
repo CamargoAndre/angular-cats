@@ -40,19 +40,19 @@ export class LoginComponent implements OnInit{
     this.service.login(login, password).subscribe(
       {
         next: (value) => {
+
           localStorage.setItem("auth", String(value.auth));
           this.router.navigate(['/cats/search'])
 
         },
         error: (err: HttpErrorResponse) => {
+          console.log(err.status)
           if(err.status == 401) {
             this.toast.error("Error!" , "Usuario ou senha inválidos!");
             this.loginForm.reset();
           } else {
             this.toast.error("Error!" , "Ocorreu um erro, tente novamente!");
           }
-
-
         }
       }
     );
